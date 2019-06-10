@@ -68,32 +68,32 @@ public class CartController extends HttpServlet {
 		cart.deleteCartItem(index);
 	}
 
-  protected void addToCart(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException {
-   HttpSession session = request.getSession();
-   String idStr = request.getParameter("id");
-   int id = Integer.parseInt(idStr);
-   String quantityStr = request.getParameter("quantity");
-   int quantity = Integer.parseInt(quantityStr);
+	  protected void addToCart(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+	   HttpSession session = request.getSession();
+	   String idStr = request.getParameter("id");
+	   int id = Integer.parseInt(idStr);
+	   String quantityStr = request.getParameter("quantity");
+	   int quantity = Integer.parseInt(quantityStr);
 
-	 // Get the book from the database
-   Book existingBook = bookDAO.getBook(id);
+		 // Get the book from the database
+	   Book existingBook = bookDAO.getBook(id);
 
-	 // Check if a ShoppingCart exists in the Session variable
-	 // If not create one
-   ShoppingCart shoppingCart = null;
-   Object objCartBean = session.getAttribute("cart");
+		 // Check if a ShoppingCart exists in the Session variable
+		 // If not create one
+	   ShoppingCart shoppingCart = null;
+	   Object objCartBean = session.getAttribute("cart");
 
-   if(objCartBean!=null) {
-    shoppingCart = (ShoppingCart) objCartBean ;
-   } else {
-    shoppingCart = new ShoppingCart();
-    session.setAttribute("cart", shoppingCart);
-   }
+	   if(objCartBean!=null) {
+		shoppingCart = (ShoppingCart) objCartBean ;
+	   } else {
+		shoppingCart = new ShoppingCart();
+		session.setAttribute("cart", shoppingCart);
+	   }
 
-	 // Add this item and quantity to the ShoppingCart
-   shoppingCart.addCartItem(existingBook, quantity);
-  }
+		 // Add this item and quantity to the ShoppingCart
+	   shoppingCart.addCartItem(existingBook, quantity);
+	  }
 
 
 
